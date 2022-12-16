@@ -1,5 +1,5 @@
 -- Decompiled using luadec 2.1 UNICODE by sztupy (http://winmo.sztupy.hu) and viruscamp 
--- Command line was: iteminfo_f(20221206©x¤è).lub 
+-- Command line was: iteminfo_f(20221206Â© org).lub 
 
 main = function()
   for ItemID,DESC in pairs(tbl) do
