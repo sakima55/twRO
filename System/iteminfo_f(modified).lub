@@ -1,13 +1,13 @@
 -- Decompiled using luadec 2.1 UNICODE by sztupy (http://winmo.sztupy.hu) and viruscamp 
 -- Command line was: iteminfo_f(20221206 modified).lub 
--- Last Modified: 20221217
+-- Last org: 20221218 Fix Costume classification error
 
 main = function()
   for ItemID,DESC in pairs(tbl) do
-    if ( DESC.slotCount == 0 ) then
-      result, msg = AddItem(ItemID, DESC.identifiedDisplayName.."(？)", DESC.identifiedResourceName, DESC.identifiedDisplayName, DESC.identifiedResourceName, DESC.slotCount, DESC.ClassNum), ItemID
+    if DESC.slotCount == 0 then
+      result, msg = AddItem(ItemID, DESC.identifiedDisplayName .. "(？)", DESC.identifiedResourceName, DESC.identifiedDisplayName, DESC.identifiedResourceName, DESC.slotCount, DESC.ClassNum), ItemID
     else
-      result, msg = AddItem(ItemID, DESC.identifiedDisplayName.."["..DESC.slotCount.."](？)", DESC.identifiedResourceName, DESC.identifiedDisplayName.."["..DESC.slotCount.."]", DESC.identifiedResourceName, DESC.slotCount, DESC.ClassNum), ItemID
+      result, msg = AddItem(ItemID, DESC.identifiedDisplayName .. "[" .. DESC.slotCount .. "](？)", DESC.identifiedResourceName, DESC.identifiedDisplayName .. "[" .. DESC.slotCount .. "]", DESC.identifiedResourceName, DESC.slotCount, DESC.ClassNum), ItemID
     end
     if not result then
       return false, msg
@@ -24,7 +24,12 @@ main = function()
         return false, msg
       end
     end
+    if DESC.costume == true then
+      result, msg = AddItemIsCostume(ItemID, DESC.costume), ItemID
+    end
+    if not result then
+      return false, msg
+    end
   end
   return true, "good"
 end
-
